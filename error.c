@@ -1,22 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmoshker <kmoshker@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/02 15:47:09 by kmoshker          #+#    #+#             */
-/*   Updated: 2024/03/05 16:19:15 by kmoshker         ###   ########.fr       */
+/*   Created: 2024/03/05 15:23:35 by kmoshker          #+#    #+#             */
+/*   Updated: 2024/03/05 16:28:09 by kmoshker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	main(int argc, char **argv)
+void	arg_error(int error)
 {
-	t_fdf	*fdf;
+	if (error == 2)
+	{
+		return ;
+	}
+	else
+	{
+		if (error < 2)
+		{
+			ft_printf("Please execute your fdf program using the file\n");
+		}
+		else if (error > 2)
+		{
+			ft_printf("Too many arguments, retry \n");
+		}
+		exit(EX_USAGE);
+	}
+}
 
-	fdf = (t_fdf *)malloc (sizeof(t_fdf));
-	arg_error(argc);
-	read_file(argv[1], fdf);
+void	file_error(void)
+{
+	ft_printf("could not open the file, retry");
 }
