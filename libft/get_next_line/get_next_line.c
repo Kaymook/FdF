@@ -6,13 +6,14 @@
 /*   By: kmoshker <kmoshker@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 06:55:51 by mosh              #+#    #+#             */
-/*   Updated: 2024/03/02 18:47:26 by kmoshker         ###   ########.fr       */
+/*   Updated: 2024/03/06 22:55:04 by kmoshker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+// #include "get_next_line.h"
+#include "libft.h"
 
-char	*ft_strjoin(char *s1, char *s2)
+static char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*new;
 
@@ -28,7 +29,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	}
 	else if (!s2)
 		return (ft_strdup(s1));
-	new = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	new = (char *)malloc((ft_istrlen(s1) + ft_istrlen(s2) + 1) * sizeof(char));
 	if (!new)
 		return (NULL);
 	new[0] = '\0';
@@ -38,7 +39,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (new);
 }
 
-char	*develop_remember_me(char *remember_me, int fd)
+static char	*develop_remember_me(char *remember_me, int fd)
 {
 	char		develop[BUFFER_SIZE + 1];
 	int			bytes_to_read;
@@ -50,7 +51,7 @@ char	*develop_remember_me(char *remember_me, int fd)
 		if (bytes_to_read <= -1)
 			return (NULL);
 		if (bytes_to_read == 0
-			&& (!remember_me || ft_strlen(remember_me) == 0))
+			&& (!remember_me || ft_istrlen(remember_me) == 0))
 		{
 			if (remember_me)
 				free(remember_me);
@@ -62,7 +63,7 @@ char	*develop_remember_me(char *remember_me, int fd)
 	return (remember_me);
 }
 
-char	*output_line_until(char *remember_me)
+static char	*output_line_until(char *remember_me)
 {
 	int		i;
 	char	*output_line;
@@ -87,7 +88,7 @@ char	*output_line_until(char *remember_me)
 	return (output_line);
 }
 
-char	*delete_and_renew(char *remember_me)
+static char	*delete_and_renew(char *remember_me)
 {
 	int		i;
 	int		j;
@@ -98,7 +99,7 @@ char	*delete_and_renew(char *remember_me)
 		i++;
 	if (remember_me[i] == '\n')
 		i++;
-	forget_me = malloc(sizeof(char) * (ft_strlen(remember_me) - i + 1));
+	forget_me = malloc(sizeof(char) * (ft_istrlen(remember_me) - i + 1));
 	if (!forget_me)
 		return (NULL);
 	j = 0;
@@ -106,7 +107,7 @@ char	*delete_and_renew(char *remember_me)
 		forget_me[j++] = remember_me[i++];
 	forget_me[j] = '\0';
 	free (remember_me);
-	if (ft_strlen(forget_me) == 0)
+	if (ft_istrlen(forget_me) == 0)
 	{
 		free (forget_me);
 		return (NULL);
@@ -122,7 +123,7 @@ char	*get_next_line(int fd)
 	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0)
 		return (0);
 	remember_me[fd] = develop_remember_me(remember_me[fd], fd);
-	if (!remember_me[fd] || ft_strlen(remember_me[fd]) == 0)
+	if (!remember_me[fd] || ft_istrlen(remember_me[fd]) == 0)
 		return (NULL);
 	output_line = output_line_until(remember_me[fd]);
 	remember_me[fd] = delete_and_renew(remember_me[fd]);

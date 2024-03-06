@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmoshker <kmoshker@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/02 15:47:09 by kmoshker          #+#    #+#             */
-/*   Updated: 2024/03/06 23:36:31 by kmoshker         ###   ########.fr       */
+/*   Created: 2023/09/23 04:44:10 by kmoshker          #+#    #+#             */
+/*   Updated: 2023/09/30 23:36:03 by kmoshker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	t_fdf	*fdf;
-	t_loop	count;
+	size_t	len;
+	size_t	i;
+	char	*str;
 
-	count.i = 0;
-	fdf = (t_fdf *)malloc (sizeof(t_fdf));
-	arg_error(argc);
-	read_fdf_file(argv[1], fdf);
-	while (fdf->height >= count.i++)
+	i = 0;
+	if (!s || !f)
+		return (0);
+	len = ft_strlen(s);
+	str = (char *)malloc(sizeof(char) * (len + 1));
+	if (!str)
+		return (NULL);
+	while (i < len)
 	{
-		count.j = 0;
-		while (fdf->width >= count.j)
-			printf("%3d", fdf->matrix[count.i][count.j++]);
-		printf("\n");
+		str[i] = f(i, s[i]);
+		i++;
 	}
-	return (0);
+	str[i] = '\0';
+	return (str);
 }

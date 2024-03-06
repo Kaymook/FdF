@@ -1,32 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmoshker <kmoshker@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/02 15:47:09 by kmoshker          #+#    #+#             */
-/*   Updated: 2024/03/06 23:36:31 by kmoshker         ###   ########.fr       */
+/*   Created: 2023/09/21 20:10:41 by kmoshker          #+#    #+#             */
+/*   Updated: 2023/10/03 19:37:37 by kmoshker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+void	*ft_memmove(void *dest, const void *src, size_t len)
 {
-	t_fdf	*fdf;
-	t_loop	count;
+	unsigned char	*dest_c;
+	unsigned char	*src_c;
 
-	count.i = 0;
-	fdf = (t_fdf *)malloc (sizeof(t_fdf));
-	arg_error(argc);
-	read_fdf_file(argv[1], fdf);
-	while (fdf->height >= count.i++)
+	dest_c = (unsigned char *)dest;
+	src_c = (unsigned char *)src;
+	if (!dest && !src)
+		return (NULL);
+	if (dest_c <= src_c)
 	{
-		count.j = 0;
-		while (fdf->width >= count.j)
-			printf("%3d", fdf->matrix[count.i][count.j++]);
-		printf("\n");
+		while (len--)
+		{
+			*dest_c++ = *src_c++;
+		}
 	}
-	return (0);
+	else
+	{
+		dest_c += len;
+		src_c += len;
+		while (len--)
+		{
+			*(--dest_c) = *(--src_c);
+		}
+	}
+	return ((void *)dest);
 }

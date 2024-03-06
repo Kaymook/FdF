@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmoshker <kmoshker@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/02 15:47:09 by kmoshker          #+#    #+#             */
-/*   Updated: 2024/03/06 23:36:31 by kmoshker         ###   ########.fr       */
+/*   Created: 2023/10/03 18:27:20 by kmoshker          #+#    #+#             */
+/*   Updated: 2023/10/03 19:37:01 by kmoshker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	t_fdf	*fdf;
-	t_loop	count;
+	t_list	*l;
 
-	count.i = 0;
-	fdf = (t_fdf *)malloc (sizeof(t_fdf));
-	arg_error(argc);
-	read_fdf_file(argv[1], fdf);
-	while (fdf->height >= count.i++)
+	if (!lst || !new)
+		return ;
+	if (!*lst)
 	{
-		count.j = 0;
-		while (fdf->width >= count.j)
-			printf("%3d", fdf->matrix[count.i][count.j++]);
-		printf("\n");
+		*lst = new;
+		return ;
 	}
-	return (0);
+	l = ft_lstlast(*lst);
+	l->next = new;
 }

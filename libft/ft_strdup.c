@@ -1,32 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmoshker <kmoshker@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/02 15:47:09 by kmoshker          #+#    #+#             */
-/*   Updated: 2024/03/06 23:36:31 by kmoshker         ###   ########.fr       */
+/*   Created: 2023/09/22 19:34:24 by kmoshker          #+#    #+#             */
+/*   Updated: 2024/03/06 20:52:46 by kmoshker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+static char	*ft_strcpy(char *dst, const char *src)
 {
-	t_fdf	*fdf;
-	t_loop	count;
+	size_t	count;
+	size_t	i;
 
-	count.i = 0;
-	fdf = (t_fdf *)malloc (sizeof(t_fdf));
-	arg_error(argc);
-	read_fdf_file(argv[1], fdf);
-	while (fdf->height >= count.i++)
+	count = ft_strlen(src);
+	i = 0;
+	while (count > i)
 	{
-		count.j = 0;
-		while (fdf->width >= count.j)
-			printf("%3d", fdf->matrix[count.i][count.j++]);
-		printf("\n");
+		dst[i] = src[i];
+		i++;
 	}
-	return (0);
+	dst[i] = '\0';
+	return (dst);
+}
+
+char	*ft_strdup(char *s1)
+{
+	char	*new;
+
+	if (!s1)
+		return (NULL);
+	new = (char *)malloc((ft_strlen(s1) + 1) * (sizeof(char)));
+	if (!new)
+		return (NULL);
+	ft_strcpy(new, s1);
+	return (new);
 }

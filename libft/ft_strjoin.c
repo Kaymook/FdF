@@ -1,50 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmoshker <kmoshker@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/24 06:57:09 by mosh              #+#    #+#             */
-/*   Updated: 2023/11/02 19:20:54 by kmoshker         ###   ########.fr       */
+/*   Created: 2023/09/22 23:21:40 by kmoshker          #+#    #+#             */
+/*   Updated: 2023/10/18 03:28:34 by kmoshker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
-
-int	ft_strlen(const char *s)
-{
-	int	len;
-
-	len = 0;
-	while (*s)
-	{
-		len++;
-		s++;
-	}
-	return (len);
-}
+#include "libft.h"
 
 static char	*ft_strcpy(char *dst, const char *src)
 {
-	int		count;
-	int		i;
-
-	count = ft_strlen(src);
-	i = 0;
-	while (count > i)
+	while (*src)
 	{
-		dst[i] = src[i];
-		i++;
+		*dst = *src;
+		dst++;
+		src++;
 	}
-	dst[i] = '\0';
+	*dst = '\0';
 	return (dst);
 }
 
-char	*ft_strcat(char *dst, const char *src)
+static char	*ft_strcat(char *dst, const char *src)
 {
-	int	num1;
-	int	i;
+	int				num1;
+	size_t			i;
 
 	num1 = ft_strlen(dst);
 	i = 0;
@@ -57,30 +40,24 @@ char	*ft_strcat(char *dst, const char *src)
 	return (dst);
 }
 
-char	*ft_strchr(const char *s, int c)
-{
-	if (s == NULL)
-		return (NULL);
-	while (*s)
-	{
-		if (*s == (char)c)
-			return ((char *)s);
-		s++;
-	}
-	if ((char)c == '\0')
-		return ((char *)s);
-	return (0);
-}
-
-char	*ft_strdup(char *s1)
+char	*ft_strjoin(const char *s1, const char *s2)
 {
 	char	*new;
+	int		len1;
+	int		len2;
 
-	if (!s1)
+	if (!s1 && !s2)
 		return (NULL);
-	new = (char *)malloc((ft_strlen(s1) + 1) * (sizeof(char)));
+	else if (!s1)
+		return ((char *)s2);
+	else if (!s2)
+		return ((char *)s1);
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	new = (char *)malloc((len1 + len2 + 1) * sizeof(char));
 	if (!new)
 		return (NULL);
 	ft_strcpy(new, s1);
+	ft_strcat(new, s2);
 	return (new);
 }

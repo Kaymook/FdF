@@ -6,7 +6,7 @@
 /*   By: kmoshker <kmoshker@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 15:46:14 by kmoshker          #+#    #+#             */
-/*   Updated: 2024/03/05 16:10:30 by kmoshker         ###   ########.fr       */
+/*   Updated: 2024/03/06 21:31:57 by kmoshker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,37 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <sysexits.h>
-# include "./get_next_line/get_next_line.h"
+# include "libft/libft.h"
 
-typedef struct s_fdf
-{
-	double		x;
-	double		y;
-	double		z;
-	int			height;
-	int			width;
-	char		**matrix;
-	void		*mlx_ptr;
-	void		*win_ptr;
-	uint32_t	color;
-}	t_fdf;
+# include <stdio.h>
+
 
 typedef struct s_point
 {
-	
-}
+	double	x;
+	double	y;
+	double	z;
+}	t_point;
+
+typedef struct s_loop
+{
+	int	i;
+	int	j;
+}	t_loop;
+
+typedef struct s_fdf
+{
+	int			height;
+	int			width;
+	int			**matrix;
+	void		*mlx_ptr;
+	void		*win_ptr;
+	t_point		point;
+	uint32_t	color;
+}	t_fdf;
+
 
 void	arg_error(int error);
-
+void	read_fdf_file(char *file_name, t_fdf *data);
+void	make_matrix(int *data, char *gnl);
 #endif

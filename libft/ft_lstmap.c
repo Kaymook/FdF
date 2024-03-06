@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmoshker <kmoshker@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/02 15:47:09 by kmoshker          #+#    #+#             */
-/*   Updated: 2024/03/06 23:36:31 by kmoshker         ###   ########.fr       */
+/*   Created: 2023/10/16 17:06:21 by kmoshker          #+#    #+#             */
+/*   Updated: 2023/10/24 04:40:24 by kmoshker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_fdf	*fdf;
-	t_loop	count;
+	t_list	*new;
+	t_list	*tmp;
 
-	count.i = 0;
-	fdf = (t_fdf *)malloc (sizeof(t_fdf));
-	arg_error(argc);
-	read_fdf_file(argv[1], fdf);
-	while (fdf->height >= count.i++)
+	new = NULL;
+	if (!lst || !f)
+		return (new);
+	while (lst)
 	{
-		count.j = 0;
-		while (fdf->width >= count.j)
-			printf("%3d", fdf->matrix[count.i][count.j++]);
-		printf("\n");
+		tmp = ft_lstnew((*f)(lst->content));
+		if (!tmp)
+		{
+			ft_lstclear(&new, (*del));
+			return (NULL);
+		}
+		ft_lstadd_back(&new, tmp);
+		lst = lst->next;
 	}
-	return (0);
+	return (new);
 }
