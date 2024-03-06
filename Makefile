@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kmoshker <kmoshker@student.42tokyo.jp>     +#+  +:+       +#+         #
+#    By: mosh <mosh@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 19:13:24 by kmoshker          #+#    #+#              #
-#    Updated: 2024/03/06 22:22:15 by kmoshker         ###   ########.fr        #
+#    Updated: 2024/03/07 02:53:42 by mosh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,7 @@ OBJS = ${SRCS:.c=.o}
 LIBFT_PATH = ./libft
 LIBFT = $(LIBFT_PATH)/libft.a
 CC = cc
-CFLAGS = -Wall -Wextra -Werror 
-# -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 AR = ar rs
 RM = rm -f
 
@@ -40,8 +39,8 @@ clean:
 	${RM} ${OBJS}
 
 fclean:	clean
-	make clean -C ./libft
-	${RM} $(NAME)
+	make fclean -C ./libft
+	${RM} $(NAME) 
 
 re:	fclean all
 

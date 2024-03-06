@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmoshker <kmoshker@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: mosh <mosh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 06:55:51 by mosh              #+#    #+#             */
-/*   Updated: 2024/03/06 22:55:04 by kmoshker         ###   ########.fr       */
+/*   Updated: 2024/03/07 01:59:29 by mosh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #include "get_next_line.h"
 #include "libft.h"
 
-static char	*ft_strjoin(char *s1, char *s2)
+static char	*ft_strljoin(char *s1, char *s2)
 {
 	char	*new;
 
@@ -58,7 +58,7 @@ static char	*develop_remember_me(char *remember_me, int fd)
 			return (NULL);
 		}
 		develop[bytes_to_read] = '\0';
-		remember_me = ft_strjoin(remember_me, develop);
+		remember_me = ft_strljoin(remember_me, develop);
 	}
 	return (remember_me);
 }

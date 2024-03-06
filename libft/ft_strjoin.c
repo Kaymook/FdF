@@ -3,28 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmoshker <kmoshker@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: mosh <mosh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 23:21:40 by kmoshker          #+#    #+#             */
-/*   Updated: 2023/10/18 03:28:34 by kmoshker         ###   ########.fr       */
+/*   Updated: 2024/03/07 01:57:23 by mosh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*ft_strcpy(char *dst, const char *src)
-{
-	while (*src)
-	{
-		*dst = *src;
-		dst++;
-		src++;
-	}
-	*dst = '\0';
-	return (dst);
-}
-
-static char	*ft_strcat(char *dst, const char *src)
+char	*ft_strcat(char *dst, const char *src)
 {
 	int				num1;
 	size_t			i;
