@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmoshker <kmoshker@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: mosh <mosh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 15:46:14 by kmoshker          #+#    #+#             */
-/*   Updated: 2024/03/06 21:31:57 by kmoshker         ###   ########.fr       */
+/*   Updated: 2024/03/12 16:17:25 by mosh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <fcntl.h>
 # include <sysexits.h>
 # include "libft/libft.h"
-
+#include "../minilibx_macos/mlx.h"
 # include <stdio.h>
 
 
@@ -50,4 +50,5 @@ typedef struct s_fdf
 void	arg_error(int error);
 void	read_fdf_file(char *file_name, t_fdf *data);
 void	make_matrix(int *data, char *gnl);
+void	line(int x0, int y0, int x1, int y1, t_fdf *data);
 #endif

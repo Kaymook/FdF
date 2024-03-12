@@ -6,7 +6,7 @@
 /*   By: mosh <mosh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 15:32:29 by kmoshker          #+#    #+#             */
-/*   Updated: 2024/03/07 03:32:06 by mosh             ###   ########.fr       */
+/*   Updated: 2024/03/12 13:51:57 by mosh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int get_width(char *file)
 	fd = open_file(file);
 	line = get_next_line(fd);
 	if (!line)
-		return (0);
+		return (1);
 	width = count_words(line, ' ');
 	free(line);
 	close(fd);
