@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mosh <mosh@student.42.fr>                  +#+  +:+       +#+         #
+#    By: kmoshker <kmoshker@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 19:13:24 by kmoshker          #+#    #+#              #
-#    Updated: 2024/03/12 16:19:24 by mosh             ###   ########.fr        #
+#    Updated: 2024/03/12 16:34:22 by kmoshker         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ SRCS = error.c \
 		fdf.c \
 		main.c \
 		read_file.c \
+		map.c
  
 OBJS = ${SRCS:.c=.o}
 LIBFT_PATH = ./libft

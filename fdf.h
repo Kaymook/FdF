@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mosh <mosh@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kmoshker <kmoshker@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 15:46:14 by kmoshker          #+#    #+#             */
-/*   Updated: 2024/03/12 16:17:25 by mosh             ###   ########.fr       */
+/*   Updated: 2024/03/12 16:33:29 by kmoshker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,8 @@
 # include <fcntl.h>
 # include <sysexits.h>
 # include "libft/libft.h"
-#include "../minilibx_macos/mlx.h"
+# include "minilibx/mlx.h"
 # include <stdio.h>
-
 
 typedef struct s_point
 {

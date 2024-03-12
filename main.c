@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mosh <mosh@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kmoshker <kmoshker@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 15:47:09 by kmoshker          #+#    #+#             */
-/*   Updated: 2024/03/12 15:45:41 by mosh             ###   ########.fr       */
+/*   Updated: 2024/03/12 16:33:37 by kmoshker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	main(int argc, char **argv)
 	// 		printf("%3d", fdf->matrix[count.i][count.j++]);
 	// 	count.i++;
 	// 	printf("\n");
-		
 	// }
 	return (0);
 }
