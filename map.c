@@ -6,13 +6,28 @@
 /*   By: mosh <mosh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:56:31 by mosh              #+#    #+#             */
-/*   Updated: 2024/03/12 14:25:54 by mosh             ###   ########.fr       */
+/*   Updated: 2024/03/12 18:18:25 by mosh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void line(int x0, int y0, int x1, int y1, t_fdf *data)
+void	map_fdf(t_fdf *data)
+{
+	int	x;
+	int	y;
+	while (data->height > y)
+	{
+		
+		x = 0;
+		while (data->width > x)
+			line(x, y, x + 1, y, data);
+			line(x, y, x, y + 1, data);
+		y++;
+	}
+}
+
+void	line(int x0, int y0, int x1, int y1, t_fdf *data)
 {
     int dx = abs(x1 - x0);
     int dy = abs(y1 - y0);
@@ -48,3 +63,4 @@ void line(int x0, int y0, int x1, int y1, t_fdf *data)
 		}
 	}
 }
+
