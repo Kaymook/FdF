@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mosh <mosh@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kmoshker <kmoshker@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 15:32:29 by kmoshker          #+#    #+#             */
-/*   Updated: 2024/03/12 13:51:57 by mosh             ###   ########.fr       */
+/*   Updated: 2024/03/16 21:58:08 by kmoshker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int open_file(char *file)
+static int	open_file(char *file)
 {
-	int fd;
+	int	fd;
 
 	fd = open(file, O_RDONLY);
 	if (0 >= fd)
@@ -22,11 +22,11 @@ static int open_file(char *file)
 	return (fd);
 }
 
-static int get_width(char *file)
+static int	get_width(char *file)
 {
-	int width;
-	int fd;
-	char *line;
+	int		width;
+	int		fd;
+	char	*line;
 
 	fd = open_file(file);
 	line = get_next_line(fd);
@@ -38,10 +38,11 @@ static int get_width(char *file)
 	return (width);
 }
 
-static int get_height(char *file)
+static int	get_height(char *file)
 {
-	int height;
-	int fd;
+	int	height;
+	int	fd;
+
 	fd = open_file(file);
 	height = 0;
 	while (get_next_line(fd))
@@ -52,15 +53,13 @@ static int get_height(char *file)
 	return (height);
 }
 
-void read_fdf_file(char *file_name, t_fdf *data)
+void	init_matrix(char *file_name, t_fdf *data)
 {
-	int fd;
-	char *gnl;
-	t_loop count;
+	t_loop	count;
 
 	data->width = get_width(file_name);
 	data->height = get_height(file_name);
-	fd = open_file(file_name);
+	data->fd = open_file(file_name);
 	data->matrix = (int **)malloc(sizeof(int *) * (data->height + 1));
 	if (!data->matrix)
 		exit(1);
@@ -71,23 +70,13 @@ void read_fdf_file(char *file_name, t_fdf *data)
 		if (!data->matrix[count.i])
 			exit(1);
 		count.i++;
-	}
-	count.i = 0;
-	while (count.i < data->height)
-	{
-		gnl = get_next_line(fd);
-		make_matrix(data->matrix[count.i], gnl);
-		count.i++;
-	}
-	data->matrix[count.i] =NULL;
-	close(fd);
-	return;
+	}	
 }
 
-void make_matrix(int *data, char *gnl)
+void	make_matrix(int *data, char *gnl)
 {
-	char **split;
-	t_loop count;
+	char	**split;
+	t_loop	count;
 
 	count.i = 0;
 	split = ft_split(gnl, ' ');
@@ -102,20 +91,21 @@ void make_matrix(int *data, char *gnl)
 	free(split);
 }
 
-// while (1)
-// {
-// 	i = 0;
-// 	gnl = get_next_line(fd);
-// 	if (!gnl)
-// 		break ;
-// 	split = ft_split(gnl, ' ');
-// 	if (!split)
-// 		exit(1);
-// 	while (split[i++] != NULL)
-// 	{
-// 		make_lst();
-// 	}
-// 	y++;
-// 	free(gnl);
-// 	free_split(split);
-// }
+void	read_fdf_file(char *file_name, t_fdf *data)
+{
+	int		fd;
+	char	*gnl;
+	t_loop	count;
+
+	init_matrix(file_name, data);
+	count.i = 0;
+	while (count.i < data->height)
+	{
+		gnl = get_next_line(fd);
+		make_matrix(data->matrix[count.i], gnl);
+		count.i++;
+	}
+	data->matrix[count.i] = NULL;
+	close(data->fd);
+}
+

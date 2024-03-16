@@ -13,6 +13,7 @@ SRCS =	ft_strlen.c \
 		ft_memmove.c \
 		ft_memcmp.c \
 		ft_atoi.c \
+		ft_abs.c \
 		ft_isalpha.c \
 		ft_isdigit.c \
 		ft_isalnum.c \

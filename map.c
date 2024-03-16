@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mosh <mosh@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kmoshker <kmoshker@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:56:31 by mosh              #+#    #+#             */
-/*   Updated: 2024/03/12 18:18:25 by mosh             ###   ########.fr       */
+/*   Updated: 2024/03/16 22:45:36 by kmoshker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,53 +14,82 @@
 
 void	map_fdf(t_fdf *data)
 {
-	int	x;
-	int	y;
-	while (data->height > y)
+	t_coordinates	pos;
+
+	pos.y = 0;
+	while (data->height > pos.y)
 	{
-		
-		x = 0;
-		while (data->width > x)
-			line(x, y, x + 1, y, data);
-			line(x, y, x, y + 1, data);
-		y++;
+		pos.x = 0;
+		while (data->width > pos.x)
+		{
+			if (data->width - 1 > pos.x)
+				map_line(pos, pos.x + 1, pos.y, data);
+			if (data->height - 1 > pos.y)
+				map_line(pos, pos.x, pos.y + 1, data);
+			pos.x++;
+		}
+		pos.y++;
 	}
 }
 
-void	line(int x0, int y0, int x1, int y1, t_fdf *data)
+void	init_zoom(t_coordinates *pos, int *x1, int *y1)
 {
-    int dx = abs(x1 - x0);
-    int dy = abs(y1 - y0);
-    int sx;
-	int sy;
+	pos->x *= ZOOM;
+	*x1 *= ZOOM;
+	pos->y *= ZOOM;
+	*y1 *= ZOOM;
+}
 
-    if (x0 < x1)
-		sx = 1;
+void	init_point(t_coordinates *pos, int *x1, int *y1, t_point *point)
+{
+	point->dx = ft_abs(*x1 - pos->x);
+	point->dy = ft_abs(*y1 - pos->y);
+	init_zoom(pos, x1, y1);
+	if (pos->x < *x1)
+		point->step_x = 1;
 	else
-		sx = -1;
-    if (y0 < y1)
-		sy = 1;
+		point->step_x = -1;
+	if (pos->y < *y1)
+		point->step_y = 1;
 	else
-		sy = -1;
-    int err = dx - dy;
+		point->step_y = -1;
+	point->err = point->dx - point->dy;
+}
 
+void	isometric_porjection(double *x, double *y, double *z, t_point point)
+{
+	// point.dx = x * cos((double)) * z;
+	// point.dy = y * sin((double)) * z;
+	*x = *x - *y;
+	*y = (*x + *y) * sin(M_PI / 60) - *z; 
+}
+
+void	map_line(t_coordinates pos, int x1, int y1, t_fdf *data)
+{
+	t_point	point;
+
+	init_point(&pos, &x1, &y1, &point);
+	init_zoom(&pos, &x1, &y1);
+
+	pos.z = data->matrix[pos.x][pos.y];
+	pos.z1 = data->matrix[x1][y1];
+	isometric_porjection((double)pos.x, pos.y, pos.z, point);
+	isometric_porjection((double)x1, (double)y1, pos.z1, point);
 	while (1)
 	{
-		mlx_pixel_put(data->mlx_ptr, data->win_ptr, x0, y0, 0xFFFFFF);
-
-		if (x0 == x1 && y0 == y1)
-			break;
-		int e2 = 2 * err;
-		if (e2 > -dy)
+		mlx_pixel_put(data->mlx_ptr, data->win_ptr, pos.x, pos.y, 0xFFFFFF);
+		if (pos.x == x1 && pos.y == y1)
+			break ;
+		point.err2 = 2 * point.err;
+		if (point.err2 > -point.dy)
 		{
-			err -= dy;
-			x0 += sx;
+			point.err -= point.dy;
+			pos.x += point.step_x;
 		}
-		if (e2 < dx)
+		if (point.err2 < point.dx)
 		{
-			err += dx;
-			y0 += sy;
+			point.err += point.dx;
+			pos.y += point.step_y;
 		}
 	}
 }
-
