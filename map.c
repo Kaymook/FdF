@@ -6,7 +6,7 @@
 /*   By: kmoshker <kmoshker@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:56:31 by mosh              #+#    #+#             */
-/*   Updated: 2024/03/16 22:45:36 by kmoshker         ###   ########.fr       */
+/*   Updated: 2024/03/16 23:24:13 by kmoshker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,12 @@ void	init_point(t_coordinates *pos, int *x1, int *y1, t_point *point)
 
 void	isometric_porjection(double *x, double *y, double *z, t_point point)
 {
+	(void)point;
 	// point.dx = x * cos((double)) * z;
 	// point.dy = y * sin((double)) * z;
-	*x = *x - *y;
-	*y = (*x + *y) * sin(M_PI / 60) - *z; 
+	double prev_x = *x;
+	*x = prev_x - *y;
+	*y = (prev_x + *y) * sin(M_PI / 6) - *z;
 }
 
 void	map_line(t_coordinates pos, int x1, int y1, t_fdf *data)
@@ -73,8 +75,9 @@ void	map_line(t_coordinates pos, int x1, int y1, t_fdf *data)
 
 	pos.z = data->matrix[pos.x][pos.y];
 	pos.z1 = data->matrix[x1][y1];
-	isometric_porjection((double)pos.x, pos.y, pos.z, point);
-	isometric_porjection((double)x1, (double)y1, pos.z1, point);
+	isometric_porjection(&pos.x, &pos.y, &pos.z, point);
+	isometric_porjection(&x1, &y1, &pos.z1, point);
+
 	while (1)
 	{
 		mlx_pixel_put(data->mlx_ptr, data->win_ptr, pos.x, pos.y, 0xFFFFFF);

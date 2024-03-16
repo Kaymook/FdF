@@ -6,7 +6,7 @@
 /*   By: kmoshker <kmoshker@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 15:32:29 by kmoshker          #+#    #+#             */
-/*   Updated: 2024/03/16 21:58:08 by kmoshker         ###   ########.fr       */
+/*   Updated: 2024/03/16 23:17:19 by kmoshker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ void	make_matrix(int *data, char *gnl)
 
 void	read_fdf_file(char *file_name, t_fdf *data)
 {
-	int		fd;
 	char	*gnl;
 	t_loop	count;
 
@@ -101,7 +100,7 @@ void	read_fdf_file(char *file_name, t_fdf *data)
 	count.i = 0;
 	while (count.i < data->height)
 	{
-		gnl = get_next_line(fd);
+		gnl = get_next_line(data->fd);
 		make_matrix(data->matrix[count.i], gnl);
 		count.i++;
 	}
