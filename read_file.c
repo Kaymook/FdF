@@ -6,7 +6,7 @@
 /*   By: kmoshker <kmoshker@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 15:32:29 by kmoshker          #+#    #+#             */
-/*   Updated: 2024/03/16 23:17:19 by kmoshker         ###   ########.fr       */
+/*   Updated: 2024/03/17 23:07:08 by kmoshker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,25 @@ static int	get_height(char *file)
 	return (height);
 }
 
+
+void	make_matrix(int *data, char *gnl)
+{
+	char	**split;
+	t_loop	count;
+
+	count.i = 0;
+	split = ft_split(gnl, ' ');
+	if (!split)
+		exit(1);
+	while (split[count.i] != NULL)
+	{
+		data[count.i] = ft_atoi(split[count.i]);
+		free(split[count.i]);
+		count.i++;
+	}
+	free(split);
+}
+
 void	init_matrix(char *file_name, t_fdf *data)
 {
 	t_loop	count;
@@ -71,24 +90,6 @@ void	init_matrix(char *file_name, t_fdf *data)
 			exit(1);
 		count.i++;
 	}	
-}
-
-void	make_matrix(int *data, char *gnl)
-{
-	char	**split;
-	t_loop	count;
-
-	count.i = 0;
-	split = ft_split(gnl, ' ');
-	if (!split)
-		exit(1);
-	while (split[count.i] != NULL)
-	{
-		data[count.i] = ft_atoi(split[count.i]);
-		free(split[count.i]);
-		count.i++;
-	}
-	free(split);
 }
 
 void	read_fdf_file(char *file_name, t_fdf *data)

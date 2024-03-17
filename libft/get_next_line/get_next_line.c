@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mosh <mosh@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kmoshker <kmoshker@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 06:55:51 by mosh              #+#    #+#             */
-/*   Updated: 2024/03/07 01:59:29 by mosh             ###   ########.fr       */
+/*   Updated: 2024/03/17 23:56:35 by kmoshker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,13 @@ static char	*ft_strljoin(char *s1, char *s2)
 
 static char	*develop_remember_me(char *remember_me, int fd)
 {
-	char		develop[BUFFER_SIZE + 1];
+	char		*develop;
+	// char		develop[BUFFER_SIZE + 1];
 	int			bytes_to_read;
 
+	develop = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!develop)
+		exit (1);
 	bytes_to_read = 1;
 	while (bytes_to_read > 0 && !ft_strchr(remember_me, '\n'))
 	{
