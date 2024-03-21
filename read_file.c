@@ -6,7 +6,7 @@
 /*   By: kmoshker <kmoshker@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 15:32:29 by kmoshker          #+#    #+#             */
-/*   Updated: 2024/03/17 23:07:08 by kmoshker         ###   ########.fr       */
+/*   Updated: 2024/03/21 09:43:52 by kmoshker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	open_file(char *file)
 
 	fd = open(file, O_RDONLY);
 	if (0 >= fd)
-		exit(1);
+		error("could not open the file, retry");
 	return (fd);
 }
 
@@ -27,11 +27,17 @@ static int	get_width(char *file)
 	int		width;
 	int		fd;
 	char	*line;
+	int		fake;
 
+	fake = 0;
 	fd = open_file(file);
 	line = get_next_line(fd);
 	if (!line)
-		return (1);
+		error("gnl");
+	while (get_next_line(fd))
+	{
+		fake++;
+	}
 	width = count_words(line, ' ');
 	free(line);
 	close(fd);
@@ -40,19 +46,23 @@ static int	get_width(char *file)
 
 static int	get_height(char *file)
 {
-	int	height;
-	int	fd;
+	int		height;
+	int		fd;
+	char	*gnl;
 
 	fd = open_file(file);
 	height = 0;
-	while (get_next_line(fd))
+	gnl = get_next_line(fd);
+	while (gnl)
 	{
 		height++;
+		free(gnl);
+		gnl = get_next_line(fd);
 	}
+	free (gnl);
 	close(fd);
 	return (height);
 }
-
 
 void	make_matrix(int *data, char *gnl)
 {
@@ -62,7 +72,7 @@ void	make_matrix(int *data, char *gnl)
 	count.i = 0;
 	split = ft_split(gnl, ' ');
 	if (!split)
-		exit(1);
+		error("split");
 	while (split[count.i] != NULL)
 	{
 		data[count.i] = ft_atoi(split[count.i]);
@@ -81,13 +91,13 @@ void	init_matrix(char *file_name, t_fdf *data)
 	data->fd = open_file(file_name);
 	data->matrix = (int **)malloc(sizeof(int *) * (data->height + 1));
 	if (!data->matrix)
-		exit(1);
+		error("matrix");
 	count.i = 0;
 	while (count.i < data->height)
 	{
 		data->matrix[count.i] = (int *)malloc(sizeof(int) * (data->width + 1));
 		if (!data->matrix[count.i])
-			exit(1);
+			error("matrix");
 		count.i++;
 	}	
 }
@@ -102,10 +112,11 @@ void	read_fdf_file(char *file_name, t_fdf *data)
 	while (count.i < data->height)
 	{
 		gnl = get_next_line(data->fd);
+		if (!gnl)
+			break ;
 		make_matrix(data->matrix[count.i], gnl);
 		count.i++;
 	}
 	data->matrix[count.i] = NULL;
 	close(data->fd);
 }
-

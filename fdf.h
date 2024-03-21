@@ -6,7 +6,7 @@
 /*   By: kmoshker <kmoshker@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 15:46:14 by kmoshker          #+#    #+#             */
-/*   Updated: 2024/03/17 22:50:41 by kmoshker         ###   ########.fr       */
+/*   Updated: 2024/03/21 08:24:34 by kmoshker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_fdf
 
 
 void	arg_error(int error);
+void	error(char *str);
 void	read_fdf_file(char *file_name, t_fdf *data);
 void	make_matrix(int *data, char *gnl);
 // void	map_line(t_coordinates pos, int x1, int y1, t_fdf *data);

@@ -6,7 +6,7 @@
 /*   By: kmoshker <kmoshker@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 06:55:51 by mosh              #+#    #+#             */
-/*   Updated: 2024/03/17 23:56:35 by kmoshker         ###   ########.fr       */
+/*   Updated: 2024/03/21 09:15:21 by kmoshker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ static char	*ft_strljoin(char *s1, char *s2)
 	return (new);
 }
 
+	// char		develop[BUFFER_SIZE + 1];
 static char	*develop_remember_me(char *remember_me, int fd)
 {
 	char		*develop;
-	// char		develop[BUFFER_SIZE + 1];
 	int			bytes_to_read;
 
 	develop = malloc((BUFFER_SIZE + 1) * sizeof(char));
@@ -128,7 +128,10 @@ char	*get_next_line(int fd)
 		return (0);
 	remember_me[fd] = develop_remember_me(remember_me[fd], fd);
 	if (!remember_me[fd] || ft_istrlen(remember_me[fd]) == 0)
+	{
+		free(remember_me[fd]);
 		return (NULL);
+	}
 	output_line = output_line_until(remember_me[fd]);
 	remember_me[fd] = delete_and_renew(remember_me[fd]);
 	return (output_line);

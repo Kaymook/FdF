@@ -6,7 +6,7 @@
 /*   By: kmoshker <kmoshker@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:56:31 by mosh              #+#    #+#             */
-/*   Updated: 2024/03/17 23:24:22 by kmoshker         ###   ########.fr       */
+/*   Updated: 2024/03/21 09:50:12 by kmoshker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,12 +181,10 @@ void	map_fdf(t_fdf *data)
 
 # define MAX(a, b) (a > b ? a : b)
 
-
 void	isometric_porjection(float *x, float *y, int z)
 {
 	*x = (*x - *y) * cos(0.8);
 	*y = (*x + *y) * sin(0.8) - z;
-
 
 }
 
