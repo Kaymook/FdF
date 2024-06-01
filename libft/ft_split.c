@@ -6,11 +6,12 @@
 /*   By: kmoshker <kmoshker@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 09:07:58 by kmoshker          #+#    #+#             */
-/*   Updated: 2024/03/06 21:37:08 by kmoshker         ###   ########.fr       */
+/*   Updated: 2024/05/01 17:29:59 by kmoshker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 static void	*free_split(char **split)
 {
@@ -70,6 +71,11 @@ char	**ft_split(char const *s, char c)
 	result[i] = NULL;
 	return (result);
 }
+
+// __attribute__((destructor))
+// static void destructor() {
+// 	system ("leaks -q a.out");
+// }
 
 // int main(void)
 // {

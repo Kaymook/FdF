@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmoshker <kmoshker@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: mosh <mosh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:15:05 by kmoshker          #+#    #+#             */
-/*   Updated: 2024/03/06 21:16:39 by kmoshker         ###   ########.fr       */
+/*   Updated: 2024/04/23 19:12:46 by mosh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+long	ft_atoi(const char *str)
 {
 	int					minus;
 	unsigned long long	num;
@@ -35,7 +35,7 @@ int	ft_atoi(const char *str)
 		num = num * 10 + (*str - '0');
 		str++;
 	}
-	return ((int)(num * minus));
+	return ((num * minus));
 }
 
 // int	ft_atoi(const char *str)

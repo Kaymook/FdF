@@ -46,6 +46,8 @@ SRCS =	ft_strlen.c \
 		ft_lstiter.c \
 		ft_lstmap.c \
 		get_next_line/get_next_line.c \
+		ft_printf/ft_printf.c \
+		ft_printf/utils.c \
 
 NAME = libft.a
 CC = cc

@@ -5,83 +5,34 @@
 #                                                     +:+ +:+         +:+      #
 #    By: kmoshker <kmoshker@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/03/06 19:13:24 by kmoshker          #+#    #+#              #
-#    Updated: 2024/03/12 16:34:22 by kmoshker         ###   ########.fr        #
+#    Created: 2024/06/01 19:04:25 by kmoshker          #+#    #+#              #
+#    Updated: 2024/06/01 19:04:28 by kmoshker         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fdf
-SRCS = error.c \
-		fdf.c \
-		main.c \
-		read_file.c \
-		map.c
- 
-OBJS = ${SRCS:.c=.o}
-LIBFT_PATH = ./libft
-LIBFT = $(LIBFT_PATH)/libft.a
+FRAEMWORKS=-framework OpenGL -framework AppKit
+FLAGS=-Werror -Wextra -Wall
+NAME=fdf
+SRC=src/*.c
+INCLUDES=libft/libft.a minilibx_macos/libmlx.a
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
-MLX_FLAGS = -framework OpenGL -framework AppKit -I ./minilibx_macos/fdf.h -lmlx
+all:
+	@make -C libft/ all
+	@make -C minilibx_macos/ all
+	gcc $(SRC) -o $(NAME) $(FLAGS) $(INCLUDES) $(FRAEMWORKS)
 
-AR = ar rs
-RM = rm -f
-
-.c.o:
-	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
-
-all: ${NAME}
-
-$(NAME): $(LIBFT) ${OBJS}
-	${CC} ${CFLAGS} ${MLX_FLAGS} $^ -o $@
-	@echo "$$ARTWORK"
-
-$(LIBFT):
-	make -C ./libft
 clean:
-	make clean -C ./libft
-	${RM} ${OBJS}
+	@make -C libft/ clean
+	@make -C minilibx_macos/ clean
 
-fclean:	clean
-	make fclean -C ./libft
-	${RM} $(NAME) 
+fclean: clean
+	/bin/rm -f $(NAME)
+	@make -C libft/ fclean
 
-re:	fclean all
+re: fclean all
 
-.PHONY:	all clean fclean re libft 
-
-
-define ARTWORK
-
-█████████████████████████████████████████████████████████████████████████
-█▌/////////////////////////////////////////////////////////////////////▐█
-█▌/////////////////////////////////////////////////////////////////////▐█
-█▌/////////////////////////////////////////////////////////////////////▐█
-█▌//FFFFFFFFFFFFFFFFFFFFFFDDDDDDDDDDDDD////////FFFFFFFFFFFFFFFFFFFFFF//▐█
-█▌//F::::::::::::::::::::FD::::::::::::DDD/////F::::::::::::::::::::F//▐█
-█▌//F::::::::::::::::::::FD:::::::::::::::DD///F::::::::::::::::::::F//▐█
-█▌//FF::::::FFFFFFFFF::::FDDD:::::DDDDD:::::D//FF::::::FFFFFFFFF::::F//▐█
-█▌////F:::::F///////FFFFFF//D:::::D////D:::::D///F:::::F///////FFFFFF//▐█
-█▌////F:::::F///////////////D:::::D/////D:::::D//F:::::F///////////////▐█
-█▌////F::::::FFFFFFFFFF/////D:::::D/////D:::::D//F::::::FFFFFFFFFF/////▐█
-█▌////F:::::::::::::::F/////D:::::D/////D:::::D//F:::::::::::::::F/////▐█
-█▌////F:::::::::::::::F/////D:::::D/////D:::::D//F:::::::::::::::F/////▐█
-█▌////F::::::FFFFFFFFFF/////D:::::D/////D:::::D//F::::::FFFFFFFFFF/////▐█
-█▌////F:::::F///////////////D:::::D/////D:::::D//F:::::F///////////////▐█
-█▌////F:::::F///////////////D:::::D////D:::::D///F:::::F///////////////▐█
-█▌//FF:::::::FF///////////DDD:::::DDDDD:::::D//FF:::::::FF/////////////▐█
-█▌//F::::::::FF///////////D:::::::::::::::DD///F::::::::FF/////////////▐█
-█▌//F::::::::FF///////////D::::::::::::DDD/////F::::::::FF/////////////▐█
-█▌//FFFFFFFFFFF///////////DDDDDDDDDDDDD////////FFFFFFFFFFF/////////////▐█
-█▌/////////////////////////////////////////////////////////////////////▐█
-█▌/////////////////////////////////////////////////////////////////////▐█
-█▌/////////////////////////////////////////////////////////////////////▐█
-█▌/////////////////////////////////////////////////////////////////////▐█
-█████████████████████████████████████████████████████████████████████████
-endef
-
-export ARTWORK
-
-
-
+push:
+	git add .
+	git status
+	git commit -m fdf
+	git push
